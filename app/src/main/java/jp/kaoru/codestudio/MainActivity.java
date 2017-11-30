@@ -20,6 +20,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private static String TAG = "MainActivity";
@@ -32,6 +37,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        edittext = findViewById(R.id.editText);
+
+        try {
+            File file = new File(this.getIntent().getData().getPath());
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] spilt = line.split("");
+                for (int i = 0; i < spilt.length; i++) {
+                    edittext.append(spilt[i]);
+                }
+                edittext.append("\n");
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         findViewById(R.id.button).setOnClickListener(this);
         findViewById(R.id.button1).setOnClickListener(this);
@@ -42,11 +64,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         findViewById(R.id.button6).setOnClickListener(this);
         findViewById(R.id.button7).setOnClickListener(this);
 
-        final String[] numbers = {"0","1","2","3","4","5","6","7","8","9"};
-        final String[] keywords = {"class","super","public","praivate","protected","void","extends","implements","var","function"};
-        final String[] annotations = {"@Deprecated","@Override","@SuppressWarnings","@SafeVarargs","@FunctionalInterface","@Retention","@Documented","@Target","@Inherited","@Repeatable"};
+        final String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        final String[] keywords = {"class", "super", "public", "praivate", "protected", "void", "extends", "implements", "var", "function"};
+        final String[] annotations = {"@Deprecated", "@Override", "@SuppressWarnings", "@SafeVarargs", "@FunctionalInterface", "@Retention", "@Documented", "@Target", "@Inherited", "@Repeatable"};
 
-        edittext = findViewById(R.id.editText);
         edittext.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -59,18 +80,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void afterTextChanged(Editable s) {
-                for(int i=0; i<numbers.length; i++) {
+                edittext.setTextColor(Color.BLACK);
+                for (int i = 0; i < numbers.length; i++) {
                     for (int j = 0; j < MainActivity.this.containcounter(s.toString(), numbers[i]); j++) {
-                        if (j == MainActivity.this.containcounter(s.toString(), numbers[i])-1) {
+                        if (j == MainActivity.this.containcounter(s.toString(), numbers[i]) - 1) {
                             s.setSpan(new ForegroundColorSpan(Color.parseColor("#000080")), s.toString().indexOf(numbers[i], j), s.toString().lastIndexOf(numbers[i]) + numbers[i].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         } else {
                             s.setSpan(new ForegroundColorSpan(Color.parseColor("#000080")), s.toString().indexOf(numbers[i], j), s.toString().indexOf(numbers[i], j) + numbers[i].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         }
                     }
                 }
-                for(int i=0; i<keywords.length; i++) {
+                for (int i = 0; i < keywords.length; i++) {
                     for (int j = 0; j < MainActivity.this.containcounter(s.toString(), keywords[i]); j++) {
-                        if (j == MainActivity.this.containcounter(s.toString(), keywords[i])-1) {
+                        if (j == MainActivity.this.containcounter(s.toString(), keywords[i]) - 1) {
                             s.setSpan(new ForegroundColorSpan(Color.parseColor("#000080")), s.toString().indexOf(keywords[i], j), s.toString().lastIndexOf(keywords[i]) + keywords[i].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         } else {
                             s.setSpan(new ForegroundColorSpan(Color.parseColor("#000080")), s.toString().indexOf(keywords[i], j), s.toString().indexOf(keywords[i], j) + keywords[i].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -78,9 +100,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
 
-                for(int i=0; i<annotations.length; i++) {
+                for (int i = 0; i < annotations.length; i++) {
                     for (int j = 0; j < MainActivity.this.containcounter(s.toString(), annotations[i]); j++) {
-                        if (j == MainActivity.this.containcounter(s.toString(), annotations[i])-1) {
+                        if (j == MainActivity.this.containcounter(s.toString(), annotations[i]) - 1) {
                             s.setSpan(new ForegroundColorSpan(Color.parseColor("#808000")), s.toString().indexOf(annotations[i], j), s.toString().lastIndexOf(annotations[i]) + annotations[i].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         } else {
                             s.setSpan(new ForegroundColorSpan(Color.parseColor("#808000")), s.toString().indexOf(annotations[i], j), s.toString().indexOf(annotations[i], j) + annotations[i].length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -89,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
 
                 for (int j = 0; j < MainActivity.this.containcounter(s.toString(), "\""); j++) {
-                    if (j == MainActivity.this.containcounter(s.toString(), "\"")-1) {
+                    if (j == MainActivity.this.containcounter(s.toString(), "\"") - 1) {
                         s.setSpan(new ForegroundColorSpan(Color.parseColor("#008000")), s.toString().indexOf("\"", j), s.toString().lastIndexOf("\"") + "\"".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     } else {
                         s.setSpan(new ForegroundColorSpan(Color.parseColor("#008000")), s.toString().indexOf("\"", j), s.toString().indexOf("\"", j) + "\"".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
