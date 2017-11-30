@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="AnnotationsColor">#808000</color>
+    <color name="CommentsColor">#808080</color>
+    <color name="KeywordsColor">#000080</color>
+    <color name="NumberColor">#0000FF</color>
+    <color name="StringColor">#008000</color>
+    <color name="PropertyKeyColor">#660E7A</color>
+    <color name="ValidEscapeSequence">#000080</color>
+</resources>

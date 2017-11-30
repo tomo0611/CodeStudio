@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CodeStudio</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="button">{</string>
+    <string name="button1">}</string>
+    <string name="button2">(</string>
+    <string name="button3">)</string>
+    <string name="button4">;</string>
+    <string name="button5">"</string>
+    <string name="button6">\'</string>
+    <string name="button7">=</string>
+</resources>
